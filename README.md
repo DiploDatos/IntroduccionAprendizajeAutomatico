@@ -1,4 +1,4 @@
-### Diplomatura AACSyA 2018 - FaMAF - UNC
+### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2018 - FaMAF - UNC
 # Introducción al Aprendizaje Automático
 
 
