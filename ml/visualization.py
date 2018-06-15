@@ -6,6 +6,18 @@ from .kneighbors import kneighbors_classify_matrix
 from .perceptron import perceptron_vectorized
 
 
+def decision_boundary(X, w, h=0.01):
+    x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
+    y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), 
+                         np.arange(y_min, y_max, h))
+    Z = (np.c_[np.ones_like(xx.ravel()), 
+               xx.ravel(), yy.ravel()].dot(w) >= 0.5).astype(np.int)
+    Z = Z.reshape(xx.shape)
+
+    return xx, yy, Z
+
+
 def kneighbors_boundary(X, y, k, distance_function, h=0.05):
     """
     Calculates and return the matrices with the kneighbors decision boundary.
@@ -58,6 +70,36 @@ def perceptron_boundary(X, y, h=0.01):
 
     return xx, yy, Z
 
+
+def classifier_boundary(X, model, featurizer=None, h=0.01):
+    """
+    Calculates and return the matrices with the given classifier decision boundary.
+
+    :param X: matrix of inputs.
+    :param model: classifier with scikit-learn api (i.e. has a `.predict` method)
+    :param featurizer: if given transform the features of the meshgrid
+    :param h: step for the decision boundary matrix.
+
+    :return: three matrices needed to plot the decision boundary for the
+             perceptron algorithm.
+    """
+    x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
+    y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
+
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+
+    Z_features = np.c_[xx.ravel(), yy.ravel()]
+
+    if featurizer is not None:
+        Z_features = featurizer.transform(Z_features)
+
+    Z = model.predict(Z_features)
+    Z = Z.reshape(xx.shape)
+
+    return xx, yy, Z
+
+
 def plot_confusion_matrix(cm, classes,
                           normalize=False,
                           title='Confusion matrix',
@@ -88,30 +130,29 @@ def plot_confusion_matrix(cm, classes,
     plt.xlabel('Etiqueta predicha')
 
 
-def classifier_boundary(X, model, featurizer=None, h=0.01):
-    """
-    Calculates and return the matrices with the given classifier decision boundary.
-
-    :param X: matrix of inputs.
-    :param model: classifier with scikit-learn api (i.e. has a `.predict` method)
-    :param featurizer: if given transform the features of the meshgrid
-    :param h: step for the decision boundary matrix.
-
-    :return: three matrices needed to plot the decision boundary for the
-             perceptron algorithm.
-    """
-    x_min, x_max = X[:, 0].min() - 0.1, X[:, 0].max() + 0.1
-    y_min, y_max = X[:, 1].min() - 0.1, X[:, 1].max() + 0.1
-
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                         np.arange(y_min, y_max, h))
-
-    Z_features = np.c_[xx.ravel(), yy.ravel()]
-
-    if featurizer is not None:
-        Z_features = featurizer.transform(Z_features)
-
-    Z = model.predict(Z_features)
-    Z = Z.reshape(xx.shape)
-
-    return xx, yy, Z
+def plot_learning_curve(train_sizes, train_scores, validation_scores,
+                        title="Curva de aprendizaje"):
+    train_scores_mean = np.mean(train_scores, axis=1)
+    train_scores_std = np.std(train_scores, axis=1)
+    validation_scores_mean = np.mean(validation_scores, axis=1)
+    validation_scores_std = np.std(validation_scores, axis=1)
+    
+    plt.title(title)
+    plt.xlabel("Cantidad de datos de entrenamiento")
+    plt.ylabel("Exactitud")
+    plt.ylim(0.0, 1.1)
+    plt.grid()
+    
+    plt.fill_between(train_sizes,
+                     train_scores_mean - train_scores_std,
+                     train_scores_mean + train_scores_std,
+                     alpha=0.5, color="lightcoral")
+    plt.fill_between(train_sizes,
+                     validation_scores_mean - validation_scores_std,
+                     validation_scores_mean + validation_scores_std,
+                     alpha=0.5, color="skyblue")
+    plt.plot(train_sizes, train_scores_mean, 'o-', color="tomato",
+             label="Datos de entrenamiento")
+    plt.plot(train_sizes, validation_scores_mean, 'o-', color="dodgerblue",
+             label="Datos de validación")
+    plt.legend(loc="lower right")
