@@ -1,6 +1,9 @@
-### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2019 - FaMAF - UNC
+### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2020 - FaMAF - UNC
 # Introducción al Aprendizaje Automático
 
+Docentes:
+- Jorge Sánchez
+- Franco Luque
 
 ## Requisitos de Instalación
 
@@ -11,11 +14,11 @@ Anaconda por completo, se necesitan instalar los siguientes paquetes:
 - Numpy y Scipy
 - Scikit Learn
 - Matplotlib
-- Jupyter
+- JupyterLab
 
 Una vez que hayan clonado este repositorio, en este mismo directorio pueden
-ejecutar jupyter para abrir las notebooks:
+ejecutar jupyter lab para abrir las notebooks:
 
 ```
-$ jupyter notebook
+$ jupyter lab
 ```
