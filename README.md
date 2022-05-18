@@ -1,9 +1,9 @@
-### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2021 - FaMAF - UNC
+### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2022 - FaMAF - UNC
 # Introducción al Aprendizaje Automático
 
 Docentes:
 - Jorge Sánchez
-- Franco Luque
+- Diego González Dondo
 
 ## Requisitos de Instalación
 
