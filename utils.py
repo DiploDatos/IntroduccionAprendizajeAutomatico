@@ -20,9 +20,11 @@ def plot_decision_boundary(model, X, y):
     Z = Z.reshape(xx.shape)
 
     # Plot the contour and training examples
-    plt.contourf(xx, yy, Z, cmap=plt.cm.ocean)
-    plt.scatter(X[0, y==1], X[1, y==1], color="dodgerblue", edgecolors='k', label="1")
-    plt.scatter(X[0, y==-1], X[1, y==-1], color="tomato", edgecolors='k', label="-1")
+    plt.contourf(xx, yy, Z, cmap=plt.cm.ocean, alpha=0.5)
+    #plt.contourf(xx, yy, Z, cmap=plt.cm.Pastel1, alpha=0.5)
+    #plt.scatter(X[0, y==1], X[1, y==1], color="dodgerblue", edgecolors='k', label="1")
+    plt.scatter(X[0, y==1], X[1, y==1], color="royalblue", label="1")
+    plt.scatter(X[0, y==-1], X[1, y==-1], color="red",  label="-1")
     plt.legend()
 
 
