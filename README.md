@@ -1,4 +1,4 @@
-### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2024 - FaMAF - UNC
+### Diplomatura en Ciencia de Datos, Aprendizaje Automático y sus Aplicaciones - 2025 - FaMAF - UNC
 # Introducción al Aprendizaje Automático
 
 Docentes:
